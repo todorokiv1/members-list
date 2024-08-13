@@ -1,0 +1,10 @@
+{
+    "token": "your_bot_token_here",
+    "prefix": "&&",
+    "intents": {
+        "guilds": true,
+        "guildMessages": true,
+        "messageContent": true,
+        "guildMembers": true
+    }
+}
