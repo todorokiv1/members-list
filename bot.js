@@ -1,35 +1,25 @@
 const { Client, Intents } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
-
-// Load configuration
-const configPath = path.join(__dirname, 'config.json');
-const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
 
+const token = 'YOUR_BOT_TOKEN_HERE';
+
 client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+    console.log('Bot is online!');
 });
 
-client.on('messageCreate', async message => {
-  if (message.content === '!members') {
-    if (message.guild) {
-      try {
-        // Fetch the members
-        const members = await message.guild.members.fetch();
-        // Create a list of member names
-        const memberList = members.map(member => member.user.tag).join('\n');
-        // Send the list as a message
-        message.channel.send(`Members:\n${memberList}`);
-      } catch (error) {
-        console.error('Error fetching members:', error);
-        message.channel.send('There was an error fetching the members.');
-      }
-    } else {
-      message.channel.send('This command can only be used in a server.');
+client.on('messageCreate', async (message) => {
+    if (message.content === '!listmembers') {
+        if (!message.guild) return;
+
+        try {
+            await message.guild.members.fetch(); // Fetch all members
+            const members = message.guild.members.cache.map(member => member.user.username).join('\n');
+            message.channel.send(`Members:\n${members}`);
+        } catch (error) {
+            console.error('Error fetching members:', error);
+            message.channel.send('Failed to fetch members.');
+        }
     }
-  }
 });
 
-client.login(config.TOKEN);
+client.login(token);
