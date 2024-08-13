@@ -1,5 +1,5 @@
 {
-    "token": "your_bot_token_here",
+    "token": "MTE2Nzg1MTg1NDA1MTQxODIzMw.G2FVWi.X3ImDayw82s4fEQT_gQp4CLtdSXE5CIVBKpJYo",
     "prefix": "&&",
     "intents": {
         "guilds": true,
